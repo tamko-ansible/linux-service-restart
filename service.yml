@@ -1,0 +1,18 @@
+---
+  - name: "Disabling {{ service }} service"
+    hosts: all
+    become: yes
+    become_user: root
+    vars:
+      service: snmpd
+
+    tasks:
+      - name: "Stopping {{ service }}"
+        systemd:
+          name: "{{ service }}"
+          state: stopped
+
+      - name: "Disabling {{ service }}"
+        systemd:
+          name: "{{ service }}"
+          enabled: no
